@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Conversation {
+  id        String   @id @default(uuid())
+  title     String?
+  status    ConversationStatus @default(ACTIVE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages     Message[]
+  inferenceLogs InferenceLog[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String   @id @default(uuid())
+  conversationId String
+  role           MessageRole
+  content        String
+  redactedContent String?
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model InferenceLog {
+  id             String   @id @default(uuid())
+  conversationId String?
+  sessionId      String
+  provider       String
+  model          String
+  status         LogStatus @default(SUCCESS)
+  latencyMs      Int
+  promptTokens   Int?
+  completionTokens Int?
+  totalTokens    Int?
+  inputPreview   String?
+  outputPreview  String?
+  errorMessage   String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+
+  @@map("inference_logs")
+}
+
+enum ConversationStatus {
+  ACTIVE
+  CANCELLED
+  ARCHIVED
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+enum LogStatus {
+  SUCCESS
+  ERROR
+  CANCELLED
+}
