@@ -13,7 +13,17 @@ import { errorHandler } from "./middleware/errorHandler";
 const app = express();
 
 app.use(helmet({contentSecurityPolicy:false}));
-app.use(cors({origin:"*"}));
+const allowedOrigins = process.env.NODE_ENV === "production"
+  ? [
+      process.env.FRONTEND_URL || "",
+      "https://ollive-ai.netlify.app",
+    ].filter(Boolean)
+  : ["*"];
+
+app.use(cors({
+  origin: process.env.NODE_ENV === "production" ? allowedOrigins : "*",
+  credentials: true,
+}));
 app.use(express.json({limit:"2mb"}))
 app.use(morgan("dev"));
 
