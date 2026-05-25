@@ -6,8 +6,8 @@ A production-ready multi-provider LLM chatbot with a lightweight inference loggi
 
 ## Live Demo
 
-- **Frontend:** [https://ollive-ai.netlify.app](https://ollive-ai.netlify.app) *(deploy link)*
-- **Backend API:** [https://ollive-backend.railway.app](https://ollive-backend.railway.app) *(deploy link)*
+- **Frontend:** [https://ollive-ai.netlify.app](https://ollive-ai.netlify.app)
+- **Backend API:** [https://olliveai-production.up.railway.app](https://olliveai-production.up.railway.app)
 
 ---
 
