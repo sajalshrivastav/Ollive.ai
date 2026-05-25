@@ -205,7 +205,7 @@ ollive-ai/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/ollive-ai.git
+git clone https://github.com/sajalshrivastav/ollive-ai.git
 cd ollive-ai
 ```
 
@@ -240,11 +240,6 @@ npm run dev
 ```
 
 Frontend runs at `http://localhost:5173`
-
-### 4. One-command Docker setup (optional)
-```bash
-docker-compose up --build
-```
 
 ---
 
